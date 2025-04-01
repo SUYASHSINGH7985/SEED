@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Signup = () => {
+  const navigate = useNavigate(); // Initialize navigation
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,6 +37,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
@@ -45,6 +48,7 @@ const Signup = () => {
       const data = await response.json();
       if (response.ok) {
         alert(data.message);
+        navigate("/dashboard"); // Redirect to dashboard after success
       } else {
         alert(data.error);
       }
@@ -52,8 +56,7 @@ const Signup = () => {
       console.error("Signup Error:", error);
       alert("Something went wrong. Please try again.");
     }
-};
-
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#686179]">
@@ -146,7 +149,7 @@ const Signup = () => {
 
           <p className="text-gray-300 text-center mt-4">
             Already have an account?{" "}
-            <span className="text-[#625783] cursor-pointer">Sign In</span>
+            <span className="text-[#625783] cursor-pointer" onClick={() => navigate("/signin")}>Sign In</span>
           </p>
         </div>
       </div>
