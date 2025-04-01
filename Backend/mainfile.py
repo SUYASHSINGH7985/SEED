@@ -34,6 +34,19 @@ def signup():
 
     return jsonify({"message": "Signup successful!"}), 201  # 201 for created
 
+@app.route('/verify_password', methods=['POST'])
+def verify_password_endpoint():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    
+    if not username or not password:
+        return jsonify({"message": "Username and password are required"}), 400
+
+    if verify_password(username, password):
+        return jsonify({"message": "Login successful!", "token": "some-jwt-token"}), 200
+    else:
+        return jsonify({"message": "Invalid username or password"}), 401
 
     
 

@@ -152,7 +152,7 @@ def read_users():
     conn.close()
     return user_list
 
-
+print(read_users())
 """
 conn = sqlite3.connect('user_credentials.db')
 c = conn.cursor()

@@ -19,7 +19,8 @@ const SignIn = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/signin", {
+      // Send request to the backend to verify the password
+      const response = await fetch("http://127.0.0.1:5000/verify_password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,9 +54,9 @@ const SignIn = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
+            name="username" // change to 'username' to match backend
+            placeholder="Username"
+            value={formData.username}
             onChange={handleChange}
             required
             className="w-full p-3 bg-[#3C364B] text-white rounded-lg placeholder-[#666173] focus:outline-none"
