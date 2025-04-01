@@ -54,8 +54,8 @@ const SignIn = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="username" // change to 'username' to match backend
-            placeholder="Username"
+            name="email" // change to 'username' to match backend
+            placeholder="Email"
             value={formData.username}
             onChange={handleChange}
             required
