@@ -37,7 +37,7 @@ def signup():
 
     result = insert_user(email, password, full_name)
     if not result:
-        return jsonify({"error": "User Already exists!"}), 400  # Use proper error status
+        return jsonify({"error": "User already exists!"}), 400  # Use proper error status
 
     return jsonify({"message": "Signup successful!"}), 201  # 201 for created
 
@@ -45,25 +45,25 @@ def signup():
 @app.route('/verify_password', methods=['POST'])
 def verify_password_endpoint():
     data = request.get_json()
-    username = data.get('username')
+    email = data.get('email')  # Changed from 'username' to 'email'
     password = data.get('password')
     
-    if not username or not password:
-        return jsonify({"message": "Username and password are required"}), 400
+    if not email or not password:
+        return jsonify({"message": "Email and password are required"}), 400
 
-    if verify_password(username, password):
+    if verify_password(email, password):  # Authenticate using email
         # Create JWT token
-        payload = {"user_id": username}
+        payload = {"user_email": email}  # Changed from 'user_id' to 'user_email'
         token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
         return jsonify({"message": "Login successful!", "token": token}), 200
     else:
-        return jsonify({"message": "Invalid username or password"}), 401
+        return jsonify({"message": "Invalid email or password"}), 401
 
 # Decode JWT token to get user info
 def decode_token(token):
     try:
         decoded_data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-        return decoded_data  # This will contain the user data (e.g., user ID)
+        return decoded_data  # This will contain the user data (e.g., email)
     except jwt.ExpiredSignatureError:
         return None  # Token has expired
     except jwt.InvalidTokenError:
@@ -83,8 +83,8 @@ def get_user():
     if not user_data:
         return jsonify({"message": "Unauthorized"}), 401
 
-    user_id = user_data['user_id']  # Assume user_id is in the decoded token
-    user = get_user_from_db(user_id)  # Fetch the user from the database using the user_id
+    user_email = user_data['user_email']  # Changed from 'user_id' to 'user_email'
+    user = get_user_from_db(user_email)  # Fetch the user from the database using the email
 
     if user:
         return jsonify({"name": user["full_name"].capitalize()})  # Correct

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",  // Changed from 'username' to 'email'
     password: "",
   });
 
@@ -35,7 +35,7 @@ const SignIn = () => {
         localStorage.setItem("token", data.token); // Store JWT if applicable
         window.location.href = "/dashboard"; // Redirect after login
       } else {
-        setError(data.message || "Invalid username or password");
+        setError(data.message || "Invalid email or password");
       }
     } catch (error) {
       setError("Network error. Please try again.");
@@ -53,10 +53,10 @@ const SignIn = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="text"
-            name="email" // change to 'username' to match backend
+            type="email"  // Changed from 'text' to 'email'
+            name="email"  // Changed from 'username' to 'email'
             placeholder="Email"
-            value={formData.username}
+            value={formData.email}
             onChange={handleChange}
             required
             className="w-full p-3 bg-[#3C364B] text-white rounded-lg placeholder-[#666173] focus:outline-none"
