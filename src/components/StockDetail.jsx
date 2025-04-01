@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 function StockDetail({ company, onBack }) {
@@ -38,12 +38,27 @@ function StockDetail({ company, onBack }) {
     ],
   };
 
+  // State to track the selected option ("Invest" or "Withdraw")
+  const [selectedOption, setSelectedOption] = useState(null);
+  // State to track the amount input by the user
+  const [amount, setAmount] = useState('');
+
+  // Handle option selection
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  // Handle amount input change
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
+  };
+
   return (
-    <div className="bg-[#1C2526] text-white font-sans">
+    <div className="bg-[#000000] text-white font-sans">
       {/* Back Button */}
       <motion.button
         onClick={onBack}
-        className="mb-6 px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-all duration-300"
+        className="mb-1 px-10 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-all duration-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -51,41 +66,55 @@ function StockDetail({ company, onBack }) {
         Back to Explore
       </motion.button>
 
-      {/* Header Section */}
-      <motion.div
-        className="flex justify-between items-center mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="flex items-center">
-          <div className="w-12 h-12 bg-white mr-4 flex items-center justify-center text-black font-bold">
-            X
-          </div>
-          <span className="text-2xl font-semibold">{stockData.name}</span>
-        </div>
-        <div className="text-right">
-          <p className="text-lg mb-2">Name: {stockData.name}</p>
-          <p className="text-lg mb-2">
-            Invest: <progress value={stockData.investProgress} max="100" className="w-32"></progress>
-          </p>
-          <p className="text-lg mb-2">Amount: {stockData.amount}</p>
-          <button className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300">
-            BUY
-          </button>
-        </div>
-      </motion.div>
+     {/* Header Section - Simplified to match screenshot exactly */}
+<div className="mb-8 p-4">
+  {/* Name row */}
+  <div className="mb-4">
+    <span className="text-white mr-2">Name:</span>
+    <button 
+      className={`mr-2 ${selectedOption === 'Invest' ? 'text-[#923EFF]' : 'text-white'}`}
+      onClick={() => handleOptionSelect('Invest')}
+    >
+      Invest
+    </button>
+    <button 
+      className={`${selectedOption === 'Withdraw' ? 'text-[#923EFF]' : 'text-white'}`}
+      onClick={() => handleOptionSelect('Withdraw')}
+    >
+      Withdraw
+    </button>
+  </div>
+
+  {/* Amount row */}
+  <div className="mb-4">
+    <span className="text-white mr-2">Amount:</span>
+    <input
+      type="text"
+      value={amount}
+      onChange={handleAmountChange}
+      placeholder="Enter amount"
+      className="w-48 p-1 bg-gray-600 text-white rounded focus:outline-none"
+    />
+  </div>
+
+  {/* BUY button */}
+  <button className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+    BUY
+  </button>
+</div>
 
       {/* Overview Section */}
       <motion.div
-        className="bg-[#2A2F31] rounded-lg p-6 mb-8"
+        className="bg-[#000000] rounded-lg p-6 mb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <h2 className="text-2xl font-semibold mb-4">Overview: Performance</h2>
+        <h2 className="text-2xl font-semibold mb-4 ">Overview</h2>
+        <h2 className="text-2xl font-semibold mb-4">Performance</h2>
         <p className="text-lg">
-          Growth 1Y: <span className="text-green-400">{stockData.growth1Y}</span>
+          Growth in <span className="text-[#923EFF]">1Y</span>: 
+          <span className="text-[#923EFF]"> {stockData.growth1Y}</span>
         </p>
       </motion.div>
 
