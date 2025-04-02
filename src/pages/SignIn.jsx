@@ -20,7 +20,7 @@ const SignIn = () => {
 
     try {
       // Send request to the backend to verify the password
-      const response = await fetch("http://127.0.0.1:5000/verify_password", {
+      const response = await fetch("http://127.0.0.1:5000/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

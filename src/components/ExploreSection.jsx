@@ -1,29 +1,56 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import MostInvestedSection from './MostInvestedSection';
-import StartupsInNewsSection from './StartupsInNewsSection';
-import TopSectorsSection from './TopSectorsSection';
-import TopByMarketCapSection from './TopByMarketCapSection';
-import StockDetail from './StockDetail';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import MostInvestedSection from "./MostInvestedSection";
+import StartupsInNewsSection from "./StartupsInNewsSection";
+import TopSectorsSection from "./TopSectorsSection";
+import TopByMarketCapSection from "./TopByMarketCapSection";
+import StockDetail from "./StockDetail";
 
 function ExploreSection() {
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [mostInvestedCompanies, setMostInvestedCompanies] = useState([]);
+  const [startupsInNews, setStartupsInNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Sample data for companies (replace with actual data or API in the future)
-  const mostInvestedCompanies = [
-    { id: 1, name: "Seed", raisedFunding: "XXX Cr" },
-    { id: 2, name: "Company X", raisedFunding: "200 Cr" },
-    { id: 3, name: "Company Y", raisedFunding: "150 Cr" },
-    { id: 4, name: "Company Z", raisedFunding: "100 Cr" },
-    { id: 5, name: "Company A", raisedFunding: "80 Cr" },
-    { id: 6, name: "Company B", raisedFunding: "50 Cr" },
-  ];
+  // Fetch companies from backend
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/get_companies", {
+      credentials: "include", // Allow backend authentication (if needed)
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP Error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setMostInvestedCompanies(data.slice(0, 3)); // First 3 companies
+        setStartupsInNews(data.slice(3, 5)); // Next 2 companies
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching companies:", err);
+        setError("Failed to load companies.");
+        setLoading(false);
+      });
+  }, []);
 
-  const startupsInNews = [
-    { id: 7, name: "Startup A", raisedFunding: "300 Cr" },
-    { id: 8, name: "Startup B", raisedFunding: "250 Cr" },
-    { id: 9, name: "Startup C", raisedFunding: "200 Cr" },
-  ];
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-white text-xl">
+        Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen text-red-500 text-xl">
+        {error}
+      </div>
+    );
+  }
 
   if (selectedCompany) {
     return (
@@ -38,7 +65,7 @@ function ExploreSection() {
   }
 
   return (
-    <div>
+    <div className="px-6 py-4">
       <MostInvestedSection companies={mostInvestedCompanies} onCompanyClick={setSelectedCompany} />
       <div className="h-px bg-gray-700 my-8"></div>
       <StartupsInNewsSection startups={startupsInNews} onStartupClick={setSelectedCompany} />

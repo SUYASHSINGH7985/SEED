@@ -1,34 +1,34 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate(); // Hook to navigate programmatically
+
   return (
-    <nav className="bg-black text-white p-4">
+    <nav className="bg-black text-white p-4 relative z-50"> {/* Ensures Navbar is on top */}
       <div className="flex justify-between items-center pl-4 pr-8 w-full">
         {/* Logo with Font and Hover Effect */}
-        <Link
-          to="/"
+        <button
+          onClick={() => navigate("/")}
           className="text-3xl font-bold hover:scale-110 transition-transform duration-200 cursor-pointer"
           style={{ fontFamily: "Boldonse" }}
         >
           SEED
-        </Link>
+        </button>
 
-        {/* Navigation Links */}
-        <div className="space-x-8 flex">
-          <Link
-            to="/signin"
-            className="text-lg text-white hover:text-gray-400 hover:scale-110 transition-transform duration-200 cursor-pointer"
-            style={{ fontFamily: "Boldonse" }} // Restored Font
+        {/* Navigation Buttons */}
+        <div className="space-x-4 flex">
+          <button
+            onClick={() => navigate("/signin")}
+            className="bg-transparent text-white border border-white px-4 py-2 rounded-md hover:bg-gray-800 transition duration-200"
           >
             Sign In
-          </Link>
-          <Link
-            to="/signup"
-            className="text-lg text-[#5200D5] hover:text-gray-400 hover:scale-110 transition-transform duration-200 cursor-pointer"
-            style={{ fontFamily: "Boldonse" }} // Kept Font
+          </button>
+          <button
+            onClick={() => navigate("/signup")}
+            className="bg-[#5200D5] text-white px-4 py-2 rounded-md hover:bg-purple-800 transition duration-200"
           >
             Get Started
-          </Link>
+          </button>
         </div>
       </div>
     </nav>

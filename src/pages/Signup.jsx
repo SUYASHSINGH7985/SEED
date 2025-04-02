@@ -48,7 +48,7 @@ const Signup = () => {
       const data = await response.json();
       if (response.ok) {
         alert(data.message);
-        navigate("/dashboard"); // Redirect to dashboard after success
+        navigate("/signin"); // Redirect to dashboard after success
       } else {
         alert(data.error);
       }

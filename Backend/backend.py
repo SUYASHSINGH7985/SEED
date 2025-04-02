@@ -169,3 +169,141 @@ def get_user_from_db(user_id):
     else:
         conn.close()
         return None  # Return None if the user is not found
+
+# Initialize the database with required tables
+def initialize_database():
+    conn = sqlite3.connect("user_credentials.db")  # Connect to the database
+    c = conn.cursor()
+    
+    # Create Users Table
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            full_name TEXT NOT NULL
+        )
+    """)
+
+    # Create Companies Table
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS companies (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            sector TEXT NOT NULL,
+            intro TEXT,
+            investors TEXT,
+            financials_text TEXT,
+            financials_num TEXT,
+            fundamentals TEXT,
+            share_holding TEXT,
+            company_founding TEXT,
+            company_culture TEXT,
+            company_emp TEXT,
+            req TEXT,
+            email TEXT,
+            ph TEXT
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+    print("Database initialized successfully!")
+
+#initialize_database()
+
+sample_companies = [
+    {
+        "name": "TechNova",
+        "sector": "AI & Machine Learning",
+        "intro": "Pioneering AI-driven analytics solutions.",
+        "investors": "Sequoia Capital, SoftBank",
+        "financials_text": "Strong revenue growth with increasing ARR.",
+        "financials_num": "500 Cr",
+        "fundamentals": "AI-powered automation for enterprises.",
+        "share_holding": "Private",
+        "company_founding": "2018",
+        "company_culture": "Innovation-focused, remote-first.",
+        "company_emp": "250",
+        "req": "Hiring for AI Engineers",
+        "email": "contact@technova.com",
+        "ph": "+91-9876543210"
+    },
+    {
+        "name": "GreenFuture",
+        "sector": "Renewable Energy",
+        "intro": "Revolutionizing solar energy for urban spaces.",
+        "investors": "Tiger Global, Accel Partners",
+        "financials_text": "Steady investment growth with positive cash flow.",
+        "financials_num": "750 Cr",
+        "fundamentals": "Sustainable energy solutions.",
+        "share_holding": "Public",
+        "company_founding": "2015",
+        "company_culture": "Sustainability-driven, hybrid work model.",
+        "company_emp": "500",
+        "req": "Looking for Solar Engineers",
+        "email": "hello@greenfuture.com",
+        "ph": "+91-9876543211"
+    },
+    {
+        "name": "FinTechPro",
+        "sector": "Financial Services",
+        "intro": "AI-powered investment advisory platform.",
+        "investors": "Y Combinator, Lightspeed Ventures",
+        "financials_text": "High profitability with low churn rate.",
+        "financials_num": "1,200 Cr",
+        "fundamentals": "AI-driven wealth management.",
+        "share_holding": "Private",
+        "company_founding": "2020",
+        "company_culture": "Fast-paced, data-driven decision-making.",
+        "company_emp": "100",
+        "req": "Hiring Data Scientists",
+        "email": "team@fintechpro.com",
+        "ph": "+91-9876543212"
+    },
+    {
+        "name": "EduNext",
+        "sector": "EdTech",
+        "intro": "Next-gen e-learning platform for students.",
+        "investors": "Byju’s, General Atlantic",
+        "financials_text": "Increasing market penetration and revenue.",
+        "financials_num": "600 Cr",
+        "fundamentals": "Personalized learning using AI.",
+        "share_holding": "Private",
+        "company_founding": "2019",
+        "company_culture": "EdTech-focused, fully remote.",
+        "company_emp": "300",
+        "req": "Hiring for Content Developers",
+        "email": "support@edunext.com",
+        "ph": "+91-9876543213"
+    },
+    {
+        "name": "MediCore",
+        "sector": "Healthcare Tech",
+        "intro": "AI-driven diagnostic solutions.",
+        "investors": "GV (Google Ventures), Khosla Ventures",
+        "financials_text": "Strong R&D investments, awaiting FDA approvals.",
+        "financials_num": "850 Cr",
+        "fundamentals": "Automated health diagnostics.",
+        "share_holding": "Public",
+        "company_founding": "2017",
+        "company_culture": "Research-driven, patient-centric.",
+        "company_emp": "450",
+        "req": "Looking for Medical Data Analysts",
+        "email": "info@medicore.com",
+        "ph": "+91-9876543214"
+    },
+]
+
+def insert_sample_companies():
+    for company in sample_companies:
+        add_company(
+            company["name"], company["sector"], company["intro"], company["investors"],
+            company["financials_text"], company["financials_num"], company["fundamentals"],
+            company["share_holding"], company["company_founding"], company["company_culture"],
+            company["company_emp"], company["req"], company["email"], company["ph"]
+        )
+    print("Sample companies inserted successfully!")
+
+#print(read_companies())
+#insert_sample_companies()

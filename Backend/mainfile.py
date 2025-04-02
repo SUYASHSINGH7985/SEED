@@ -8,9 +8,9 @@ from functools import wraps
 import secrets
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)  # Enable CORS with credentials support
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)  # Enable CORS
 
-SECRET_KEY = secrets.token_hex(24)  # Secure key for signing JWT tokens
+SECRET_KEY = secrets.token_hex(24)  # Secure key for JWT tokens
 
 # Serve the frontend React app
 @app.route("/")
@@ -41,13 +41,13 @@ def signup():
 
     return jsonify({"message": "Signup successful!"}), 201  # 201 for created
 
-# Verify password and issue JWT token
-@app.route('/verify_password', methods=['POST'])
-def verify_password_endpoint():
+# Sign-in endpoint (Login)
+@app.route('/signin', methods=['POST'])
+def signin():
     data = request.get_json()
-    email = data.get('email')  # Changed from 'username' to 'email'
+    email = data.get('email')  
     password = data.get('password')
-    
+
     if not email or not password:
         return jsonify({"message": "Email and password are required"}), 400
 
@@ -69,6 +69,11 @@ def decode_token(token):
     except jwt.InvalidTokenError:
         return None  # Invalid token
 
+@app.route('/get_companies', methods=['GET'])
+def get_companies():
+    companies = read_companies()  # Fetch companies from the database
+    return jsonify(companies)  # Return the list as JSON
+
 # Get user info by decoding the JWT token
 @app.route('/get_user', methods=['GET'])
 def get_user():
@@ -87,7 +92,7 @@ def get_user():
     user = get_user_from_db(user_email)  # Fetch the user from the database using the email
 
     if user:
-        return jsonify({"name": user["full_name"].capitalize()})  # Correct
+        return jsonify({"name": user["full_name"].title()})  # Correct
     else:
         return jsonify({"message": "User not found"}), 404
 

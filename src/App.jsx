@@ -10,11 +10,11 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Homepage />} /> {/* Home Page */}
+        <Route path="/" element={<Homepage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="*" element={<Homepage />} /> {/* Catch-all route */}
+        <Route path="*" element={<Homepage />} />
       </Routes>
     </Router>
   );
