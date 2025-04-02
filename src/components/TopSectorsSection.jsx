@@ -11,7 +11,7 @@ function TopSectorsSection() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <h2 className="text-2xl font-semibold text-white mb-6">Top Sectors</h2>
+      <h2 className="text-2xl font-semibold text-white mb-6">Top Sector</h2>
       <div className="flex flex-wrap gap-4 mt-6">
         {sectors.map((sector) => (
           <motion.span
