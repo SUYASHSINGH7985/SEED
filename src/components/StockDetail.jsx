@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import InternshipForm from './InternshipForm'; // Import InternshipForm component
-import TopHeadlinesSection from './TopHeadlinesSection'; // Import TopHeadlinesSection component
-import OverviewSectio from './OverviewSectio'; // Import OverviewSectio component
+import InternshipForm from './InternshipForm';
+import TopHeadlinesSection from './TopHeadlinesSection';
+import OverviewSectio from './OverviewSectio';
+import Chatbot from './Chatbot'; // Import Chatbot
 
 function StockDetail({ company, onBack }) {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -22,7 +23,7 @@ function StockDetail({ company, onBack }) {
   };
 
   return (
-    <div className="bg-[#000000] text-white font-sans">
+    <div className="bg-[#000000] text-white font-sans relative">
       {/* Back Button */}
       <motion.button
         onClick={onBack}
@@ -35,8 +36,8 @@ function StockDetail({ company, onBack }) {
       </motion.button>
 
       {/* Header Section */}
-      <div className="mb-8 p-4">
-        <div className="mb-4 flex flex-col">
+      <div className="mb-8 p-4 flex items-center justify-between">
+        <div className="flex flex-col">
           <span className="text-white mb-2">Name:</span>
           <div>
             <button
@@ -53,22 +54,22 @@ function StockDetail({ company, onBack }) {
             </button>
           </div>
         </div>
-
-        <div className="mb-4">
-          <span className="text-white mr-2">Amount:</span>
-          <input
-            type="text"
-            value={amount}
-            onChange={handleAmountChange}
-            placeholder="Enter amount"
-            className="w-48 p-1 bg-gray-600 text-white rounded focus:outline-none"
-          />
-        </div>
-
-        <button className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-          BUY
-        </button>
       </div>
+
+      <div className="mb-4">
+        <span className="text-white mr-2">Amount:</span>
+        <input
+          type="text"
+          value={amount}
+          onChange={handleAmountChange}
+          placeholder="Enter amount"
+          className="w-48 p-1 bg-gray-600 text-white rounded focus:outline-none"
+        />
+      </div>
+
+      <button className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+        BUY
+      </button>
 
       <div className="flex justify-start mb-8 space-x-2">
         <button
@@ -91,14 +92,13 @@ function StockDetail({ company, onBack }) {
         </button>
       </div>
 
-      {/* Render OverviewSectio if "overview" section is selected */}
+      {/* Render Sections */}
       {activeSection === 'overview' && <OverviewSectio />}
-      
-      {/* Render InternshipForm if "internship" section is selected */}
       {activeSection === 'internship' && <InternshipForm />}
-      
-      {/* Render News section if "news" section is selected */}
       {activeSection === 'news' && <TopHeadlinesSection />}
+
+      {/* Chatbot is fixed to the right side and above half of the page */}
+      <Chatbot />
     </div>
   );
 }
