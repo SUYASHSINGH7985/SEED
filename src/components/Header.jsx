@@ -12,13 +12,13 @@ function Header() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Add JWT token if necessary
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
         });
         const data = await response.json();
         
         if (response.ok) {
-          setUserName(data.name); // Assuming the backend sends the full name
+          setUserName(data.name);
         } else {
           console.error('Error fetching user name');
         }

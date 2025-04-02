@@ -3,14 +3,14 @@ import React from 'react';
 function AddToStartupSection() {
   return (
     <div>
-      <h2 className="text-2xl font-semibold text-white mb-6">Add to Startup</h2>
+      <h2 className="text-2xl font-semibold text-[#19A483] mb-6">Add your Startup</h2>
       <form className="space-y-6">
         {/* Startup Name */}
         <div>
           <label className="block text-lg text-white">Name of Company</label>
           <input
             type="text"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="Enter startup name"
           />
         </div>
@@ -20,7 +20,7 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Sector</label>
           <input
             type="text"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="Enter company sector"
           />
         </div>
@@ -30,7 +30,7 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Intro (2 lines)</label>
           <textarea
             rows="3"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="2 lines about the company"
           />
         </div>
@@ -40,7 +40,7 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Financials (Description)</label>
           <textarea
             rows="4"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="Company financial details"
           />
         </div>
@@ -50,7 +50,7 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Financials (Numbers)</label>
           <input
             type="text"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="Valuation in the past months/yrs"
           />
         </div>
@@ -60,7 +60,7 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Fundamentals</label>
           <textarea
             rows="3"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="Fundamentals about the company"
           />
         </div>
@@ -70,7 +70,7 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Share Holding</label>
           <textarea
             rows="3"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="Shareholders details"
           />
         </div>
@@ -80,7 +80,7 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Company Founding</label>
           <textarea
             rows="3"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
             placeholder="Founding of the company"
           />
         </div>
@@ -90,8 +90,8 @@ function AddToStartupSection() {
           <label className="block text-lg text-white">Contact Information</label>
           <textarea
             rows="3"
-            className="w-full p-3 rounded-lg bg-gray-700 text-gray-100 border border-gray-600"
-            placeholder="Contact details"
+            className="w-full p-3 rounded-lg bg text-gray-100 border border-gray-600"
+            placeholder="Contact details"   
           />
         </div>
 

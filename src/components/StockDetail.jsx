@@ -1,56 +1,24 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import InternshipForm from './InternshipForm'; // Import InternshipForm component
+import TopHeadlinesSection from './TopHeadlinesSection'; // Import TopHeadlinesSection component
+import OverviewSectio from './OverviewSectio'; // Import OverviewSectio component
 
 function StockDetail({ company, onBack }) {
-  // Sample data for the stock detail page (replace with actual data or API in the future)
-  const stockData = {
-    name: company.name,
-    investProgress: 50,
-    amount: "XXX Cr",
-    growth1Y: "12%",
-    fundamentals: {
-      marketCap: "XXX Cr",
-      bookValue: "48.53",
-      face: "1",
-      roe: "23.88%",
-    },
-    financials: {
-      labels: ["Dec '23", "Mar '24", "Jun '24"],
-      revenue: [50, 60, 70],
-      profit: [40, 50, 60],
-      netWorth: [30, 40, 50],
-    },
-    about: {
-      parentOrganisation: "Parent Org Name",
-      managingDirector: "Director Name",
-    },
-    holdingPatterns: {
-      promoters: "41.55%",
-      foreignInst: "46.85%",
-      retailers: "29.31%",
-      otherDomestic: "13.89%",
-    },
-    similarStocks: [
-      { name: "Company X", marketCap: "XXX Cr", growth3Y: "20%" },
-      { name: "Company Y", marketCap: "XXX Cr", growth3Y: "20%" },
-      { name: "Company Z", marketCap: "XXX Cr", growth3Y: "20%" },
-      { name: "Company A", marketCap: "XXX Cr", growth3Y: "20%" },
-    ],
-  };
-
-  // State to track the selected option ("Invest" or "Withdraw")
   const [selectedOption, setSelectedOption] = useState(null);
-  // State to track the amount input by the user
   const [amount, setAmount] = useState('');
+  const [activeSection, setActiveSection] = useState('overview');
 
-  // Handle option selection
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
 
-  // Handle amount input change
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
+  };
+
+  const handleSectionSwitch = (section) => {
+    setActiveSection(section);
   };
 
   return (
@@ -66,218 +34,71 @@ function StockDetail({ company, onBack }) {
         Back to Explore
       </motion.button>
 
-     {/* Header Section - Simplified to match screenshot exactly */}
-<div className="mb-8 p-4">
-  {/* Name row */}
-  <div className="mb-4">
-    <span className="text-white mr-2">Name:</span>
-    <button 
-      className={`mr-2 ${selectedOption === 'Invest' ? 'text-[#923EFF]' : 'text-white'}`}
-      onClick={() => handleOptionSelect('Invest')}
-    >
-      Invest
-    </button>
-    <button 
-      className={`${selectedOption === 'Withdraw' ? 'text-[#923EFF]' : 'text-white'}`}
-      onClick={() => handleOptionSelect('Withdraw')}
-    >
-      Withdraw
-    </button>
-  </div>
-
-  {/* Amount row */}
-  <div className="mb-4">
-    <span className="text-white mr-2">Amount:</span>
-    <input
-      type="text"
-      value={amount}
-      onChange={handleAmountChange}
-      placeholder="Enter amount"
-      className="w-48 p-1 bg-gray-600 text-white rounded focus:outline-none"
-    />
-  </div>
-
-  {/* BUY button */}
-  <button className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-    BUY
-  </button>
-</div>
-
-      {/* Overview Section */}
-      <motion.div
-        className="bg-[#000000] rounded-lg p-6 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4 ">Overview</h2>
-        <h2 className="text-2xl font-semibold mb-4">Performance</h2>
-        <p className="text-lg">
-          Growth in <span className="text-[#923EFF]">1Y</span>: 
-          <span className="text-[#923EFF]"> {stockData.growth1Y}</span>
-        </p>
-      </motion.div>
-
-      {/* Fundamentals Section */}
-      <motion.div
-        className="bg-[#2A2F31] rounded-lg p-6 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4">Fundamentals</h2>
-        <p className="text-lg mb-2">Market Cap: {stockData.fundamentals.marketCap}</p>
-        <p className="text-lg mb-2">Book Value: {stockData.fundamentals.bookValue}</p>
-        <p className="text-lg mb-2">FACE: {stockData.fundamentals.face}</p>
-        <p className="text-lg">ROE: {stockData.fundamentals.roe}</p>
-      </motion.div>
-
-      {/* Financials Section */}
-      <motion.div
-        className="bg-[#2A2F31] rounded-lg p-6 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4">Financials</h2>
-        <div className="flex justify-between">
-          {stockData.financials.labels.map((label, index) => (
-            <div key={label} className="text-center">
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-12 bg-[#6A5ACD] mb-2"
-                  style={{ height: `${stockData.financials.revenue[index] * 2}px` }}
-                ></div>
-                <span className="text-sm">Revenue</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-12 bg-[#6A5ACD] mb-2"
-                  style={{ height: `${stockData.financials.profit[index] * 2}px` }}
-                ></div>
-                <span className="text-sm">Profit</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-12 bg-[#6A5ACD] mb-2"
-                  style={{ height: `${stockData.financials.netWorth[index] * 2}px` }}
-                ></div>
-                <span className="text-sm">Net worth</span>
-              </div>
-              <span className="block mt-4 text-sm">{label}</span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* About Section */}
-      <motion.div
-        className="bg-[#2A2F31] rounded-lg p-6 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4">About: {stockData.name}</h2>
-        <p className="text-lg mb-2">Parent Organisation: {stockData.about.parentOrganisation}</p>
-        <p className="text-lg">Managing Director: {stockData.about.managingDirector}</p>
-      </motion.div>
-
-      {/* Holding Patterns Section */}
-      <motion.div
-        className="bg-[#2A2F31] rounded-lg p-6 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4">Holding Patterns</h2>
-        <div className="space-y-4">
-          <div className="flex items-center">
-            <span className="w-32 text-lg">Promoters</span>
-            <div className="w-full bg-gray-700 h-4 rounded">
-              <div className="bg-[#6A5ACD] h-4 rounded" style={{ width: stockData.holdingPatterns.promoters }}></div>
-            </div>
-            <span className="ml-4 text-lg">{stockData.holdingPatterns.promoters}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-32 text-lg">Foreign Inst</span>
-            <div className="w-full bg-gray-700 h-4 rounded">
-              <div className="bg-[#6A5ACD] h-4 rounded" style={{ width: stockData.holdingPatterns.foreignInst }}></div>
-            </div>
-            <span className="ml-4 text-lg">{stockData.holdingPatterns.foreignInst}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-32 text-lg">Retailers</span>
-            <div className="w-full bg-gray-700 h-4 rounded">
-              <div className="bg-[#6A5ACD] h-4 rounded" style={{ width: stockData.holdingPatterns.retailers }}></div>
-            </div>
-            <span className="ml-4 text-lg">{stockData.holdingPatterns.retailers}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-32 text-lg">Other Domestic Institutions</span>
-            <div className="w-full bg-gray-700 h-4 rounded">
-              <div className="bg-[#6A5ACD] h-4 rounded" style={{ width: stockData.holdingPatterns.otherDomestic }}></div>
-            </div>
-            <span className="ml-4 text-lg">{stockData.holdingPatterns.otherDomestic}</span>
+      {/* Header Section */}
+      <div className="mb-8 p-4">
+        <div className="mb-4 flex flex-col">
+          <span className="text-white mb-2">Name:</span>
+          <div>
+            <button
+              className={`mr-1 px-4 py-2 ${selectedOption === 'Invest' ? 'text-[#923EFF] border-b-2 border-[#923EFF]' : 'text-white border-b-2 border-transparent'} hover:text-[#923EFF]`}
+              onClick={() => handleOptionSelect('Invest')}
+            >
+              Invest
+            </button>
+            <button
+              className={`mr-1 px-4 py-2 ${selectedOption === 'Withdraw' ? 'text-[#923EFF] border-b-2 border-[#923EFF]' : 'text-white border-b-2 border-transparent'} hover:text-[#923EFF]`}
+              onClick={() => handleOptionSelect('Withdraw')}
+            >
+              Withdraw
+            </button>
           </div>
         </div>
-      </motion.div>
 
-      {/* Similar Stocks Section */}
-      <motion.div
-        className="bg-[#2A2F31] rounded-lg p-6 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4">Similar stocks</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse border border-gray-700">
-            <thead>
-              <tr className="bg-gray-700 text-white">
-                <th className="p-4 border border-gray-600">Company</th>
-                <th className="p-4 border border-gray-600">Market Cap</th>
-                <th className="p-4 border border-gray-600">Growth in 3Y</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stockData.similarStocks.map((stock) => (
-                <motion.tr
-                  key={stock.name}
-                  className="border border-gray-700 hover:bg-gray-600 transition-all duration-300 ease-in-out"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <td className="p-4 border border-gray-600">{stock.name}</td>
-                  <td className="p-4 border border-gray-600">{stock.marketCap}</td>
-                  <td className="p-4 border border-gray-600">{stock.growth3Y}</td>
-                </motion.tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="mb-4">
+          <span className="text-white mr-2">Amount:</span>
+          <input
+            type="text"
+            value={amount}
+            onChange={handleAmountChange}
+            placeholder="Enter amount"
+            className="w-48 p-1 bg-gray-600 text-white rounded focus:outline-none"
+          />
         </div>
-        <div className="flex justify-center mt-4">
-          <span className="mx-2 text-white">{'<'}</span>
-          <span className="mx-2 text-white">1</span>
-          <span className="mx-2 text-white">2</span>
-          <span className="mx-2 text-white">3</span>
-          <span className="mx-2 text-white">...</span>
-          <span className="mx-2 text-white">5</span>
-          <span className="mx-2 text-white">{'>'}</span>
-        </div>
-      </motion.div>
 
-      {/* Footer Navigation */}
-      <motion.div
-        className="flex justify-center gap-6 mt-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <a href="#" className="text-white hover:underline">Contact us</a>
-        <a href="#" className="text-white hover:underline">About us</a>
-        <a href="#" className="text-white hover:underline">Home</a>
-      </motion.div>
+        <button className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+          BUY
+        </button>
+      </div>
+
+      <div className="flex justify-start mb-8 space-x-2">
+        <button
+          onClick={() => handleSectionSwitch('overview')}
+          className={`px-6 py-2 text-lg font-semibold ${activeSection === 'overview' ? 'text-[#923EFF] border-b-2 border-[#923EFF]' : 'text-white border-b-2 border-transparent'} hover:text-[#923EFF]`}
+        >
+          Overview
+        </button>
+        <button
+          onClick={() => handleSectionSwitch('news')}
+          className={`px-6 py-2 text-lg font-semibold ${activeSection === 'news' ? 'text-[#923EFF] border-b-2 border-[#923EFF]' : 'text-white border-b-2 border-transparent'} hover:text-[#923EFF]`}
+        >
+          News
+        </button>
+        <button
+          onClick={() => handleSectionSwitch('internship')}
+          className={`px-6 py-2 text-lg font-semibold ${activeSection === 'internship' ? 'text-[#923EFF] border-b-2 border-[#923EFF]' : 'text-white border-b-2 border-transparent'} hover:text-[#923EFF]`}
+        >
+          Apply for Internship
+        </button>
+      </div>
+
+      {/* Render OverviewSectio if "overview" section is selected */}
+      {activeSection === 'overview' && <OverviewSectio />}
+      
+      {/* Render InternshipForm if "internship" section is selected */}
+      {activeSection === 'internship' && <InternshipForm />}
+      
+      {/* Render News section if "news" section is selected */}
+      {activeSection === 'news' && <TopHeadlinesSection />}
     </div>
   );
 }
