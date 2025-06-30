@@ -1,12 +1,34 @@
 import sqlite3
 import hashlib
 
-# Hash password function for security
+# ----------------------------- Utility Functions -----------------------------
+
 def hash_password(password):
+    """
+    Hashes a password using SHA-256 algorithm.
+
+    Args:
+        password (str): The plain-text password.
+
+    Returns:
+        str: The hashed password as a hexadecimal string.
+    """
     return hashlib.sha256(password.encode()).hexdigest()
 
-# Insert a new user into the database
+# ----------------------------- User Management ------------------------------
+
 def insert_user(username, password, full_name):
+    """
+    Inserts a new user into the database after checking for duplicates and hashing the password.
+
+    Args:
+        username (str): The username for the new user.
+        password (str): The plain-text password.
+        full_name (str): Full name of the user.
+
+    Returns:
+        bool: True if user was inserted successfully, False if the username already exists.
+    """
     conn = sqlite3.connect('user_credentials.db')
     c = conn.cursor()
 
@@ -26,8 +48,17 @@ def insert_user(username, password, full_name):
     conn.close()
     return True
 
-# Verify if the password matches the stored hash
 def verify_password(username, password):
+    """
+    Verifies a user's login by comparing the hashed password with the stored hash.
+
+    Args:
+        username (str): The username.
+        password (str): The plain-text password to verify.
+
+    Returns:
+        bool: True if password matches, False otherwise.
+    """
     conn = sqlite3.connect('user_credentials.db')
     c = conn.cursor()
 
@@ -47,9 +78,29 @@ def verify_password(username, password):
         conn.close()
         return False  # User not found
 
-# Add a new company to the database
+# ----------------------------- Company Management ----------------------------
+
 def add_company(name, sector, intro, investors, financials_text, financials_num, fundamentals, 
                 share_holding, company_founding, company_culture, company_emp, req, email, ph):
+    """
+    Adds a new company to the database, and creates the table if it doesn't exist.
+
+    Args:
+        name (str): Company name.
+        sector (str): Sector/industry.
+        intro (str): Brief introduction of the company.
+        investors (str): List of investors.
+        financials_text (str): Textual financial info.
+        financials_num (str): Numerical financial info.
+        fundamentals (str): Key business fundamentals.
+        share_holding (str): Shareholding type (e.g. Public/Private).
+        company_founding (str): Founding year.
+        company_culture (str): Description of work culture.
+        company_emp (str): Number of employees.
+        req (str): Job requirements or openings.
+        email (str): Contact email.
+        ph (str): Contact phone number.
+    """
     conn = sqlite3.connect('user_credentials.db')
     c = conn.cursor()
 
@@ -85,8 +136,13 @@ def add_company(name, sector, intro, investors, financials_text, financials_num,
     conn.commit()
     conn.close()
 
-# Read all companies from the database
 def read_companies():
+    """
+    Reads and returns all company records from the database.
+
+    Returns:
+        list: A list of dictionaries, each representing a company.
+    """
     conn = sqlite3.connect('user_credentials.db')
     c = conn.cursor()
     
@@ -123,8 +179,15 @@ def read_companies():
     conn.close()
     return company_list
 
-# Read all users from the database (do not return password hash)
+# ----------------------------- User Retrieval ----------------------------
+
 def read_users():
+    """
+    Reads all users from the database without exposing their passwords.
+
+    Returns:
+        list: A list of dictionaries containing user id, username, and full name.
+    """
     conn = sqlite3.connect('user_credentials.db')
     c = conn.cursor()
 
@@ -149,8 +212,16 @@ def read_users():
     conn.close()
     return user_list
 
-# Fetch user details from the database using the user_id (username in this case)
 def get_user_from_db(user_id):
+    """
+    Fetches user details using the username.
+
+    Args:
+        user_id (str): The username (used as user_id here).
+
+    Returns:
+        dict or None: User info if found, otherwise None.
+    """
     conn = sqlite3.connect('user_credentials.db')
     c = conn.cursor()
 
@@ -170,8 +241,12 @@ def get_user_from_db(user_id):
         conn.close()
         return None  # Return None if the user is not found
 
-# Initialize the database with required tables
+# ----------------------------- Database Initialization ----------------------------
+
 def initialize_database():
+    """
+    Creates the users and companies tables in the database if they do not exist.
+    """
     conn = sqlite3.connect("user_credentials.db")  # Connect to the database
     c = conn.cursor()
     
@@ -210,8 +285,9 @@ def initialize_database():
     conn.close()
     print("Database initialized successfully!")
 
-#initialize_database()
+# ----------------------------- Sample Data Insertion ----------------------------
 
+# Sample companies to populate the database
 sample_companies = [
     {
         "name": "TechNova",
@@ -296,6 +372,9 @@ sample_companies = [
 ]
 
 def insert_sample_companies():
+    """
+    Inserts a predefined list of sample companies into the database.
+    """
     for company in sample_companies:
         add_company(
             company["name"], company["sector"], company["intro"], company["investors"],
@@ -304,6 +383,3 @@ def insert_sample_companies():
             company["company_emp"], company["req"], company["email"], company["ph"]
         )
     print("Sample companies inserted successfully!")
-
-#print(read_companies())
-#insert_sample_companies()
