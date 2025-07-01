@@ -8,7 +8,7 @@ function Header() {
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/get_user', {
+        const response = await fetch('http://127.0.0.1:5002/get_user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

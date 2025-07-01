@@ -11,26 +11,11 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)  # Enable CORS for all routes
 
 # Secret key for JWT token generation
-SECRET_KEY = secrets.token_hex(24)
+SECRET_KEY = "a-very-secret-key" # Hardcoded secret key
 
-
-# Serve the React frontend's main HTML page
-@app.route("/")
-def serve_react():
-    """
-    Serves the React app's entry point (index.html) when the root URL is accessed.
-    """
-    return send_from_directory(os.path.join(os.getcwd(), "frontend/build"), "index.html")
-
-
-# Serve static files (JS, CSS, etc.) from the React frontend build
-@app.route("/<path:path>")
-def serve_static_files(path):
-    """
-    Serves static files from the React frontend build directory.
-    """
-    return send_from_directory(os.path.join(os.getcwd(), "frontend/build"), path)
-
+# Initialize database
+initialize_database()
+insert_sample_companies()
 
 # User signup endpoint
 @app.route('/signup', methods=['POST', 'OPTIONS'])
@@ -167,7 +152,16 @@ def get_user():
     else:
         return jsonify({"message": "User not found"}), 404
 
+# Serve React App
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    dist_dir = os.path.join(os.getcwd(), 'dist')
+    if path != "" and os.path.exists(os.path.join(dist_dir, path)):
+        return send_from_directory(dist_dir, path)
+    else:
+        return send_from_directory(dist_dir, 'index.html')
 
 # Entry point to run the app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5002)

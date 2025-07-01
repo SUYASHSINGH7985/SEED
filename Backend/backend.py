@@ -373,13 +373,20 @@ sample_companies = [
 
 def insert_sample_companies():
     """
-    Inserts a predefined list of sample companies into the database.
+    Inserts a predefined list of sample companies into the database if the table is empty.
     """
-    for company in sample_companies:
-        add_company(
-            company["name"], company["sector"], company["intro"], company["investors"],
-            company["financials_text"], company["financials_num"], company["fundamentals"],
-            company["share_holding"], company["company_founding"], company["company_culture"],
-            company["company_emp"], company["req"], company["email"], company["ph"]
-        )
-    print("Sample companies inserted successfully!")
+    conn = sqlite3.connect('user_credentials.db')
+    c = conn.cursor()
+    c.execute("SELECT COUNT(*) FROM companies")
+    count = c.fetchone()[0]
+    conn.close()
+
+    if count == 0:
+        for company in sample_companies:
+            add_company(
+                company["name"], company["sector"], company["intro"], company["investors"],
+                company["financials_text"], company["financials_num"], company["fundamentals"],
+                company["share_holding"], company["company_founding"], company["company_culture"],
+                company["company_emp"], company["req"], company["email"], company["ph"]
+            )
+        print("Sample companies inserted successfully!")

@@ -15,7 +15,7 @@ function ExploreSection() {
 
   // Fetch companies from backend
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/get_companies", {
+    fetch("http://127.0.0.1:5002/get_companies", {
       credentials: "include", // Allow backend authentication (if needed)
     })
       .then((response) => {
