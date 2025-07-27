@@ -1,5 +1,5 @@
 import React from 'react';
-import HeroSection from './HeroSection';
+import HeroSection from './Herosection';
 import SecondSection from './SecondSection';
 import AISection from './AISection';
 import InvestmentSection from './InvestmentSection';
