@@ -20,7 +20,8 @@ const SignIn = () => {
 
     try {
       // Send request to the backend to verify the password
-      const response = await fetch("http://127.0.0.1:5002/signin", {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:5002";
+      const response = await fetch(`${apiUrl}/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -8,7 +8,8 @@ function Header() {
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5002/get_user', {
+        const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:5002";
+        const response = await fetch(`${apiUrl}/get_user`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

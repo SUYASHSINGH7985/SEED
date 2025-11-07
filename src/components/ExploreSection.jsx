@@ -15,7 +15,8 @@ function ExploreSection() {
 
   // Fetch companies from backend
   useEffect(() => {
-    fetch("http://127.0.0.1:5002/get_companies", {
+    const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:5002";
+    fetch(`${apiUrl}/get_companies`, {
       credentials: "include", // Allow backend authentication (if needed)
     })
       .then((response) => {
