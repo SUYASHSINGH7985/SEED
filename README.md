@@ -45,7 +45,4 @@ Unlike traditional startup listing platforms, SEED focuses on **community-driven
 
 ---
 
-## 🧠 Architecture
 
-
-SUYASHSINGH7985
