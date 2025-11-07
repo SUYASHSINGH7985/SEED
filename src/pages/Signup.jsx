@@ -46,15 +46,16 @@ const Signup = () => {
       });
 
       const data = await response.json();
+      console.log("Signup Response:", data, "Status:", response.status);
       if (response.ok) {
         alert(data.message);
-        navigate("/signin"); // Redirect to dashboard after success
+        navigate("/signin"); // Redirect to signin after success
       } else {
-        alert(data.error);
+        alert(data.error || data.message || "Signup failed");
       }
     } catch (error) {
       console.error("Signup Error:", error);
-      alert("Something went wrong. Please try again.");
+      alert("Something went wrong. Please check if the backend server is running on port 5002.");
     }
   };
 

@@ -29,6 +29,7 @@ const SignIn = () => {
       });
 
       const data = await response.json();
+      console.log("SignIn Response:", data, "Status:", response.status);
 
       if (response.ok) {
         alert("Login successful!");
@@ -38,7 +39,8 @@ const SignIn = () => {
         setError(data.message || "Invalid email or password");
       }
     } catch (error) {
-      setError("Network error. Please try again.");
+      console.error("SignIn Error:", error);
+      setError("Network error. Please check if the backend server is running on port 5002.");
     } finally {
       setLoading(false);
     }
