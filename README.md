@@ -4,143 +4,42 @@ venv/bin/python3 Backend/mainfile.py
 
 A full-stack web application for startup investments with user authentication and company management.
 
-## 🚀 Tech Stack
+SEED is a modern web platform that connects startups, investors, and students in one place.
+It allows startups to showcase their projects, post internships, and attract investors — all through a sleek, responsive, and user-friendly interface.
 
-**Frontend:**
+Unlike traditional startup listing sites, SEED focuses on community-driven growth and interactive engagement, helping new ventures gain visibility and opportunities.
 
-- React + Vite
-- TailwindCSS
-- React Router
+ Key Features
+👥 For Startups
 
-**Backend:**
+Create and manage profiles with descriptions, domains, and goals.
 
-- Python Flask
-- SQLite Database
-- JWT Authentication
+Post internship openings to attract student talent.
 
-## 📋 Prerequisites
+Gain visibility among investors and the public.
 
-- Node.js (v18 or higher)
-- Python 3.14+
-- npm or yarn
+💰 For Investors
 
-## 🛠️ Local Development Setup
+Explore a curated list of startups by domain or stage.
 
-### 1. Clone the repository
+View detailed profiles to identify potential investments.
 
-```bash
-git clone https://github.com/SUYASHSINGH7985/SEED.git
-cd SEED/SEED
-```
+Chatbot-assisted search for faster navigation.
 
-### 2. Setup Backend
+🎓 For Students
 
-```bash
-# Create virtual environment
-python3 -m venv venv
+Discover internship opportunities directly from startups.
 
-# Activate virtual environment
-source venv/bin/activate  # On macOS/Linux
-# or
-venv\Scripts\activate  # On Windows
+View startup profiles to learn about innovative projects.
 
-# Install dependencies
-pip install -r requirements.txt
+Build industry connections early.
 
-# Start backend server
-python3 Backend/mainfile.py
-```
+💬 Unique Features
 
-Backend will run on `http://127.0.0.1:5002`
+🤖 AI-powered Chatbot Interface: Quickly find startups or internships using natural queries.
 
-### 3. Setup Frontend
+💻 Responsive Frontend: Designed with React and Tailwind CSS for a smooth, modern experience.
 
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Frontend will run on `http://localhost:5173` (or 5174 if 5173 is busy)
-
-## 🌐 Deployment
-
-### Deploy Backend (Railway/Render)
-
-1. **Create an account** on [Railway](https://railway.app) or [Render](https://render.com)
-
-2. **Deploy Flask backend:**
-
-   - Upload your `Backend/` folder
-   - Set Python version to 3.14
-   - Set start command: `python mainfile.py`
-   - Add environment variable: `PORT=5002`
-
-3. **Copy your backend URL** (e.g., `https://your-app.railway.app`)
-
-### Deploy Frontend (Vercel)
-
-1. **Update `.env.production`** with your backend URL:
-
-```env
-VITE_API_URL=https://your-backend-url.railway.app
-```
-
-2. **Deploy to Vercel:**
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel --prod
-```
-
-3. **Add environment variable in Vercel Dashboard:**
-   - Go to your project settings
-   - Add: `VITE_API_URL` = `https://your-backend-url.railway.app`
-
-## 📝 Environment Variables
-
-### Frontend (.env.local for development)
-
-```env
-VITE_API_URL=http://127.0.0.1:5002
-```
-
-### Frontend (.env.production for production)
-
-```env
-VITE_API_URL=https://your-backend-url.com
-```
-
-## 🔑 Features
-
-- ✅ User Registration & Authentication
-- ✅ JWT Token-based sessions
-- ✅ Company listings
-- ✅ Startup investment tracking
-- ✅ Responsive UI
-
-## 🐛 Troubleshooting
-
-**Issue: "Network error. Please check if the backend server is running"**
-
-- Make sure backend is running on port 5002
-- Check if `VITE_API_URL` is set correctly
-- In production, ensure backend is deployed and URL is correct
-
-**Issue: CORS errors**
-
-- Backend already has CORS enabled
-- Ensure credentials are included in fetch requests
-
-## 📄 License
-
-MIT
-
-## 👨‍💻 Author
+⚡ Dynamic UI Components: Fast, minimal, and accessible layout built for performance.
 
 SUYASHSINGH7985
